@@ -7,10 +7,18 @@ from schema.quiz_schema import QuizResponse, quiz_to_output
 
 class CreatePlayerRequest(BaseModel):
     """Definição do objeto da requisição de criação 
-    de um novo player"""
+    de um novo jogador"""
 
     username: str = Field(..., description='Nome do jogador',
                           example='spiderman01')
+
+
+class UpdatePlayerRequest(BaseModel):
+    """Definição do objeto da requisição de atualização 
+    de um jogado"""
+
+    username: str = Field(..., description='Nome do jogador',
+                          example='spiderman05')
 
 
 class GetPlayerRequest(BaseModel):
