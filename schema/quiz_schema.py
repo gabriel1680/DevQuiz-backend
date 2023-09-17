@@ -50,4 +50,5 @@ def quiz_to_output(quiz: Quiz) -> dict:
         'id': quiz.id,
         'player_id': quiz.player_id,
         'score': quiz.score,
+        'answered_at': quiz.answered_at.isoformat(),
     }

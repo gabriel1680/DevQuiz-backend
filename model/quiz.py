@@ -13,19 +13,19 @@ class Quiz(Model):
     id = Column('id', Integer, primary_key=True)
     player_id = Column('player_id', Integer, ForeignKey('players.id'))
     score = Column('score', Integer)
-    created_at = Column('created_at', DateTime, default=datetime.now)
+    answered_at = Column('answered_at', DateTime, default=datetime.now)
 
-    def __init__(self, player_id: int, score: str, created_at: Union[DateTime, None] = None) -> None:
+    def __init__(self, player_id: int, score: str, answered_at: Union[DateTime, None] = None) -> None:
         """
         Cria uma instância de Quiz
 
         Arguments:
             player_id: id do jogador
             score: pontuação obtida
-            created_at: data de criação da quiz
+            answered_at: data em que o quiz foi respondido
         """
         self.player_id = player_id
-        self.title = score
+        self.score = score
 
-        if created_at:
-            self.created_at = created_at
+        if answered_at:
+            self.answered_at = answered_at

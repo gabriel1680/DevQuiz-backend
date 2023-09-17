@@ -5,7 +5,9 @@ from model.quiz import Quiz
 from model.player import Player
 from schema.error_schema import ErrorResponse
 from schema.quiz_schema import CreateQuizRequest, GetQuizRequest, QuizListResponse, \
-    QuizResponse, quiz_to_output
+    QuizResponse, GetQuizzesRequest, quiz_to_output
+
+from schema.player_schema import GetPlayerRequest
 
 quiz_tag = Tag(
     name='Quiz', description='Operações relativas ao quiz')
@@ -14,18 +16,18 @@ api = APIBlueprint('/player/<int:player_id>/quizzes',
                    __name__, abp_tags=[quiz_tag])
 
 
-@api.post('/players/<int:player_id>/quizzes',
+@api.post('/players/<int:id>/quizzes',
           responses={'201': QuizResponse, '404': ErrorResponse})
-def create_quiz(form: CreateQuizRequest, path: GetQuizRequest):
+def save_quiz_answer(body: CreateQuizRequest, path: GetPlayerRequest):
     db = Session()
 
-    player_id = path.player_id
+    player_id = path.id
     player_exists = db.query(Player).get(player_id)
     if not player_exists:
         error_message = 'Jogado com ID "{}" não foi encontrado'.format(player_id)
         return {'message': error_message}, 404
 
-    quiz = Quiz(player_id, form.score)
+    quiz = Quiz(player_id, body.score)
 
     db.add(quiz)
     db.commit()
@@ -55,13 +57,12 @@ def remove_quiz(path: GetQuizRequest):
 
 
 @api.get('/players/<int:player_id>/quizzes', responses={'200': QuizListResponse})
-def get_quizzes(path: GetQuizRequest):
+def get_quizzes(path: GetQuizzesRequest):
     db = Session()
     quizzes = db.query(Quiz).filter(Quiz.player_id == path.player_id).all()
 
     if not quizzes:
         return {'quizzes': []}, 200
-
     output = list(map(lambda quiz: quiz_to_output(quiz), quizzes))
     db.close()
     return {'quizzes': output}, 200
