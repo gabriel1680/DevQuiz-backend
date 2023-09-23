@@ -10,10 +10,6 @@ Api rest para o devquiz
 - Remover respostas antigas;
 - Visualizar o progresso;
 
-## Documentação da API e endpoints
-
-A documentação é servida no endpoint `/docs` da aplicação.
-
 ## Execução
 
 Para executar o projeto, primeiro faça o build da imagem docker
@@ -28,6 +24,10 @@ Com a imagem pronta, suba o container (por padrão na porta 8080)
 docker run -d devquiz-backend -p 8080:8080 devquiz-backend
 ```
 
+## Documentação da API e endpoints
+
+A documentação é servida no endpoint `/docs` da aplicação.
+
 ### Criação das variáveis de ambiente
 
 **OBS**: Esse passo é obrigatório para o funcionamento da API, leia com atenção!
@@ -39,10 +39,3 @@ Esse comando vai gerar um .env baseado no env.example por comodidade, mas você 
 ```sh
 cat .example.env > .env
 ```
-
-Iniciando o servidor
-
-```sh
-flask run
-```
-
