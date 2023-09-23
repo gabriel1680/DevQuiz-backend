@@ -16,30 +16,16 @@ A documentação é servida no endpoint `/docs` da aplicação.
 
 ## Execução
 
-Criação do ambiente virtual do python
+Para executar o projeto, primeiro faça o build da imagem docker
 
 ```sh
-python3 -m venv venv
+docker build . -t devquiz-backend
 ```
 
-### Ativação do venv
+Com a imagem pronta, suba o container (por padrão na porta 8080)
 
-- Windows (PowerShell):
-
-```sh
-./venv/bin/Activate.ps1
-```
-
-- MacOS/Linux:
-
-```sh
-source ./venv/bin/activate
-```
-
-Instalação das dependências do projeto
-
-```sh
-pip install -r requirements.txt
+```bash
+docker run -d devquiz-backend -p 8080:8080 devquiz-backend
 ```
 
 ### Criação das variáveis de ambiente
